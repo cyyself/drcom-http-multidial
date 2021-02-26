@@ -16,6 +16,14 @@
 
 以上库均在OpenWRT的软件包的`python3-base`中提供。
 
+### 使用方法：
+
+```bash
+sudo su
+vi main.py# 根据自己的情况修改config部分
+python3 main.py
+```
+
 ### 已经过测试的学校：
 
 - 重庆大学A区
