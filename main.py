@@ -9,6 +9,7 @@ conn = [
 		"username":"2018xxxx",
 		"password":"233333",#If there is ' in your password, you should manually escape
 		"R6":"0",#mobile flag
+		"night_discon":False,#disable at weekdays 0:00-6:00 for CQU Huxi
 		"bind": {#This is an option for multidial, for single connection, no bind is ok
 			"interface":"eth0",
 			"ip":"172.20.233.66",
@@ -49,6 +50,8 @@ def do_login(username,password,R6="0"):
 def watchdog():
 	while True:
 		for x in conn:
+			if x['night_discon'] and (time()+8*60*60) % (24*60*60) < (6*60*60) and (strftime("%a",gmtime(time()+8*60*60)) not in ['Sat','Sun']):
+				continue
 			switch_route(x)
 			if not check_status(x['username']):
 				print("[INFO] {} attempt login {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
