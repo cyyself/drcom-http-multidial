@@ -47,6 +47,10 @@ def do_login(username,password,R6="0"):
 		R6 = "0"
 	os.system("curl -H 'Uip: va5=1.2.3.4.' --resolve 'www.doctorcom.com:443:{}' https://www.doctorcom.com --data '0MKKey=0123456789&R6={}' --data-urlencode 'DDDDD={}' --data-urlencode 'upass={}' -k 1> /dev/null 2> /dev/null".format(authserver,R6,username,password))
 
+def write_pid():
+	with open('/var/run/drcom.pid','w') as file:
+		file.write(str(os.getpid()))
+
 def watchdog():
 	while True:
 		for x in conn:
@@ -61,6 +65,7 @@ def watchdog():
 				else:
 					print("[ERROR] {} failed {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
 			clear_route()
-		sleep(300)
+		sleep(120)
 
+write_pid()
 watchdog()
