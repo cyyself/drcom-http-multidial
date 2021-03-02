@@ -40,7 +40,7 @@ def check_status(username):
 	return False
 
 def do_login(username,password,R6="0"):
-	if R6:
+	if R6 == "1":
 		R6 = "1"
 	else:
 		R6 = "0"
@@ -51,12 +51,12 @@ def watchdog():
 		for x in conn:
 			switch_route(x)
 			if not check_status(x['username']):
-				print("[INFO] {} attempt login {}".format(asctime(localtime(time())),x['username'],x['R6']))
+				print("[INFO] {} attempt login {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
 				do_login(x['username'],x['password'],x['R6'])
 				if check_status(x['username']):
-					print("[INFO] {} succeed {}".format(asctime(localtime(time())),x['username'],x['R6']))
+					print("[INFO] {} succeed {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
 				else:
-					print("[ERROR] {} failed {}".format(asctime(localtime(time())),x['username'],x['R6']))
+					print("[ERROR] {} failed {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
 			clear_route()
 		sleep(300)
 
