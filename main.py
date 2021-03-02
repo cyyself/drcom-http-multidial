@@ -33,7 +33,7 @@ def switch_route(thisConn):
 	os.system("ip route add {} via {} src {} dev {}".format(authserver,gateway,ip,interface))
 
 def check_status(username):
-	os.system("curl http://{} 1> {} 2> /dev/null".format(authserver,tmp_file))
+	os.system("curl -m 10 http://{} 1> {} 2> /dev/null".format(authserver,tmp_file))
 	with open(tmp_file,'r',encoding='ascii',errors='ignore') as file:
 		result = file.read()
 		if result.find("uid='{}'".format(username)) != -1:
@@ -45,7 +45,7 @@ def do_login(username,password,R6="0"):
 		R6 = "1"
 	else:
 		R6 = "0"
-	os.system("curl -H 'Uip: va5=1.2.3.4.' --resolve 'www.doctorcom.com:443:{}' https://www.doctorcom.com --data '0MKKey=0123456789&R6={}' --data-urlencode 'DDDDD={}' --data-urlencode 'upass={}' -k 1> /dev/null 2> /dev/null".format(authserver,R6,username,password))
+	os.system("curl -m 10 -H 'Uip: va5=1.2.3.4.' --resolve 'www.doctorcom.com:443:{}' https://www.doctorcom.com --data '0MKKey=0123456789&R6={}' --data-urlencode 'DDDDD={}' --data-urlencode 'upass={}' -k 1> /dev/null 2> /dev/null".format(authserver,R6,username,password))
 
 def write_pid():
 	with open('/var/run/drcom.pid','w') as file:
@@ -67,5 +67,10 @@ def watchdog():
 			clear_route()
 		sleep(120)
 
+def addiprule():
+	os.system("/sbin/ip rule delete to 10.254.7.4 lookup main")
+	os.system("/sbin/ip rule add to 10.254.7.4 lookup main")# used to fix unstable problem for mwan3
+	
+addiprule()
 write_pid()
 watchdog()
