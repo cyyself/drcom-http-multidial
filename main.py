@@ -34,10 +34,13 @@ def switch_route(thisConn):
 
 def check_status(username):
 	os.system("curl -m 10 http://{} 1> {} 2> /dev/null".format(authserver,tmp_file))
-	with open(tmp_file,'r',encoding='ascii',errors='ignore') as file:
-		result = file.read()
-		if result.find("uid='{}'".format(username)) != -1:
-			return True
+	try:
+		with open(tmp_file,'r',encoding='ascii',errors='ignore') as file:
+			result = file.read()
+			if result.find("uid='{}'".format(username)) != -1:
+				return True
+	except:
+		return False
 	return False
 
 def do_login(username,password,R6="0"):
