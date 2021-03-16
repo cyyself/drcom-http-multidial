@@ -71,8 +71,8 @@ def watchdog():
 		sleep(120)
 
 def addiprule():
-	os.system("/sbin/ip rule delete to 10.254.7.4 lookup main")
-	os.system("/sbin/ip rule add to 10.254.7.4 lookup main")# used to fix unstable problem for mwan3
+	os.system("/sbin/ip rule delete to {} lookup main".format(authserver))
+	os.system("/sbin/ip rule add to {} lookup main".format(authserver))# fix unstable problem for mwan3
 	
 addiprule()
 write_pid()
