@@ -3,6 +3,7 @@ import os
 from time import *
 #CONFIG BEGIN
 authserver = "202.202.0.163"
+authserverv6 = "10.10.7.68" # authserver for binding IPv4 and IPv6 Address, 10.10.7.68 is for CQU Campus A
 # 202.202.0.163 for CQU Campus A and B, 10.254.7.4 for CQU Campus D (Huxi)
 conn = [
 	{
@@ -14,7 +15,8 @@ conn = [
 			"interface":"eth0",
 			"ip":"172.20.233.66",
 			"gateway":"172.20.233.1"
-		}
+		},
+		"ipv6": "2001:0da8:c800:a000:0000:0000:0000:0000"#Write address with %04x, Optional
 	}
 ]
 tmp_file = "/tmp/drcom_result.txt"
@@ -50,6 +52,11 @@ def do_login(username,password,R6="0"):
 		R6 = "0"
 	os.system("curl -m 10 -H 'Uip: va5=1.2.3.4.' --resolve 'www.doctorcom.com:443:{}' https://www.doctorcom.com --data '0MKKey=0123456789&R6={}' --data-urlencode 'DDDDD={}' --data-urlencode 'upass={}' -k 1> /dev/null 2> /dev/null".format(authserver,R6,username,password))
 
+def do_v6login(thisConn):
+	if (not 'ipv6' in thisConn):
+		return
+	os.system("curl -m 10 \"http://{}/1.htm?mv6={}&url=\" 1> /dev/null 2> /dev/null".format(authserverv6,thisConn['ipv6']))
+
 def write_pid():
 	with open('/var/run/drcom.pid','w') as file:
 		file.write(str(os.getpid()))
@@ -65,6 +72,7 @@ def watchdog():
 				do_login(x['username'],x['password'],x['R6'])
 				if check_status(x['username']):
 					print("[INFO] {} succeed {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
+					do_v6login(x)
 				else:
 					print("[ERROR] {} failed {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
 			clear_route()
