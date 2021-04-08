@@ -94,7 +94,7 @@ def watchdog():
 				if not check_v6(x['ipv6']):
 					do_v6login(x)
 					sleep(3)
-					if check_status(x['ipv6']):
+					if check_v6(x['ipv6']):
 						print("[INFO] {} IPv6 succeed {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
 					else:
 						print("[ERROR] {} IPv6 failed {}:{}".format(asctime(localtime(time())),x['username'],x['R6']))
