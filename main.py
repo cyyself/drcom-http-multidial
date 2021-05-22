@@ -3,7 +3,7 @@ import os
 from time import *
 #CONFIG BEGIN
 authserver = "202.202.0.163"
-authserverv6 = "202.202.0.180" # authserver for binding IPv4 and IPv6 Address, 10.10.7.68 is for CQU Campus A
+authserverv6 = "202.202.0.180" # authserver for binding IPv4 and IPv6 Address, 202.202.0.180 is for CQU Campus A
 # 202.202.0.163 for CQU Campus A and B, 10.254.7.4 for CQU Campus D (Huxi)
 conn = [
 	{
