@@ -107,7 +107,7 @@ def watchdog():
 
 def addiprule():
 	os.system("/sbin/ip rule delete to {} lookup main".format(authserver))
-	os.system("/sbin/ip rule add to {} lookup main".format(authserver))# fix unstable problem for mwan3
+	os.system("/sbin/ip rule add pref 100 to {} lookup main".format(authserver))# fix unstable problem for mwan3
 
 addiprule()
 write_pid()
