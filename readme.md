@@ -31,8 +31,6 @@
 
     推荐使用OpenWRT+mwan3进行，若自己使用其他方式进行负载均衡需要在main.py中修改 `check_status()` 函数，使其不从mwan3得到端口的状态。
 
-3. 
-
 ## 使用方法：
 
 基于OpenWRT 21.04官方版本。
