@@ -25,7 +25,7 @@
 
 1. 为什么删除IPv6支持：
 
-    目前大多数使用Dr.COm认证的学校（如重庆大学），IPv6认证采用访问IPv6 HTTP网页后302到IPv4认证服务器的方式，且在302的地址上包括了本机的IPv6地址，因此我们只需要在crontab中定期执行 `curl -6 -L http://某个IPv6网站` 即可完成IPv6的Keep alive，且目前IPv6没有限速，无需多拨。
+    目前大多数使用Dr.COM认证的学校（如重庆大学），IPv6认证采用访问IPv6 HTTP网页后302到IPv4认证服务器的方式，且在302的地址上包括了本机的IPv6地址，因此我们只需要在crontab中定期执行 `curl -6 -L http://某个IPv6网站` 即可完成IPv6的Keep alive，且目前IPv6没有限速，无需多拨。
 
 2. 如果使用的非OpenWRT，如何使用？
 
