@@ -31,6 +31,10 @@
 
     推荐使用OpenWRT+mwan3进行，若自己使用其他方式进行负载均衡需要在main.py中修改 `check_status()` 函数，使其不从mwan3得到端口的状态。
 
+3. 我只想实现一个掉线了自动重连或者为了安全考虑不想用学校的闭源客户端，但我不使用OpenWRT也没有mwan3，也不需要多拨，怎么办？
+    
+    [drcom-generic](https://github.com/drcoms/drcom-generic)是一个对你而言更稳定的选择。
+
 ## 使用方法：
 
 基于OpenWRT 21.04官方版本。
